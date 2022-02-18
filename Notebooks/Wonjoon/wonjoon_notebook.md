@@ -10,11 +10,16 @@ We had our first TA meeting Feb 8th to get our project proposal draft checked ou
 # 2021-02-16 MCU Board Research <a name= "keyboard1"></a>
 As indicated on the project proposal, potential microcontroller candidates are ATMEGA2560 and ATMEGA328. ATMEGA328 will be preferable if it can support all the peripherals we require. 
 
+Lukas and I purchased DIP package of ATMEGA328 (with our own money). Comparing the DIP package and the SMD (TQFP), DIP lacks 4 pins (28 vs 32 pins) which are two ADCs (ADC6 and ADC7), one VCC pin and one GND pin. To get accurate represent of what our system requires, I created a chart below. 
 
-----------------------------------------------
-![keyboard](Notebooks/Andrew/keyboard1.PNG)
+![System IO Requirement Chart](SystemIOReq1.PNG) 
+__System IO Requirements__
 
-__Initial MCU Schematic__
+Typically, display interface require a lot more data pins to be connected to it. However, it seems like using built-in I2C capable display will reduce the required number of the data pin to two. With this assumption, our system will roughly require around 10 data pins from the MCU. 
+
+For the MCU specific functional requirements, 2 XTAL designated pins need to be reserved for the crystal oscillators, 3 data pins for the USB protocol interface and 1 pin for auto-reset needs to be reserved. Therefore, minimum data pin requirement for the MCU is 16 pins. 
+
+ATMega328 is capable of total 23 I/O pins. This is enough quantity of I/O pins for our system from the rough analysis. Extra 7 pins are also available to encounter for the potential expansion and error on high level design phase. 
 
 ----------------------------------------------
 
