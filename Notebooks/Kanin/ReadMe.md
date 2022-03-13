@@ -3,6 +3,7 @@
 ## Table of contents:
 - [Design Document Check](#designdoccheck)
 - [Design Document Complete](#designdocfull)
+- [Initial PCB Design](#initialPCB)
 
 # 02/21/2022 - Design Document Check <a name="designdoccheck"></a>
 
@@ -22,4 +23,7 @@ We can see this simulation result from the images below:
 
 Points to note with these are that we still have significant ringing for our output voltages. What this means for our project is that we must find additional ways to limit our output voltage and make sure that we fall within the bounds of 2% that we set.
 
+# 03/12/2022 - Initial PCB design<a name="initialPCB"></a>
+
+During this time, I managed to initiate the first power side PCB. After deliberation during the meeting, we finalized that upon the power side we would need to connect our load directly from our solar cell. With that in mind, we would need to create a separate interleaved buck converter circuit that would allow us to directly. We would also need to use the solar cell to power a separate 7 V input to the MCU as designed by Wonjoon. This involved the use of the chip LM5009 (the datasheet can be referenced [here](../../Resources/LM5009_datasheet.pdf)). This allows us to take a variable input voltage and step that down to exactly 7 V depending upon the ratios of our input resistors. The issues with this is we actually have not created a way to implement the thermal shutdown circuit which protects the chip from being destroyed.
 
