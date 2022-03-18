@@ -690,7 +690,7 @@
     (property "Reference" "C2" (id 0) (at 144.78 144.7799 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "C" (id 1) (at 144.78 147.3199 0)
+    (property "Value" "0.022u" (id 1) (at 144.78 147.3199 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (id 2) (at 141.9352 149.86 0)
@@ -777,7 +777,7 @@
       (reference "C1") (unit 1) (value "0.022u") (footprint "")
     )
     (path "/b60c5a86-ff42-4e07-986a-6288e10d35ae"
-      (reference "C2") (unit 1) (value "C") (footprint "")
+      (reference "C2") (unit 1) (value "0.022u") (footprint "")
     )
     (path "/d1872c09-45dc-4dd4-be97-ec8d2716b39c"
       (reference "C3") (unit 1) (value "0.1u") (footprint "")
