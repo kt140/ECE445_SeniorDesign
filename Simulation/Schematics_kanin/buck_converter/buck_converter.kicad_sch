@@ -571,7 +571,7 @@
     (in_bom yes) (on_board yes)
     (uuid 767a3c84-8854-4a89-9dfe-d09866d29976)
     (property "Reference" "L1" (id 0) (at 120.65 146.05 0))
-    (property "Value" "INDUCTOR" (id 1) (at 120.65 143.51 0))
+    (property "Value" "220u" (id 1) (at 120.65 143.51 0))
     (property "Footprint" "" (id 2) (at 120.65 140.97 0)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -789,7 +789,7 @@
       (reference "D1") (unit 1) (value "DIODE") (footprint "")
     )
     (path "/767a3c84-8854-4a89-9dfe-d09866d29976"
-      (reference "L1") (unit 1) (value "INDUCTOR") (footprint "")
+      (reference "L1") (unit 1) (value "220u") (footprint "")
     )
     (path "/b32f2e70-da2a-4d9b-ad0c-f3706f6f8f40"
       (reference "R1") (unit 1) (value "1.8k") (footprint "")
