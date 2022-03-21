@@ -1,0 +1,164 @@
+
+**** 02/24/22 18:10:17 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-test1"  [ D:\School_Works\Senior\Sem2\ECE445\NiCd Charging Sim\LM317LogicTest-PSpiceFiles\SCHEMATIC1\test1.s
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "test1.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\cds_spb_home\cdssetup\OrCAD_PSpiceTIPSpice_Install\17.4.0\PSpice.ini file:
+.lib "nom_pspti.lib" 
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 1000ns 0 
+.OPTIONS ADVCONV
+.OPTIONS FILEMODELSEARCH
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source LM317LOGICTEST
+X_U1         N00046 N00104 N00125 LM317-N_TRANS
+Q_Q1         N00104 N00346 0 QbreakN 
+D_D1         N00104 N00200 Dbreak 
+V_V1         N00046 0 22Vdc
+R_R3         N00346 N00117  1k TC=0,0 
+R_R4         0 N00200  1Meg TC=0,0 
+R_R6         N00104 N00125  18 TC=0,0 
+C_C1         0 N00046  0.1u  TC=0,0 
+V_V2         N00117 0  
++PULSE 0 0 500ns 0 0 500ns 1000ns
+
+**** RESUMING test1.cir ****
+.END
+
+**** 02/24/22 18:10:17 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-test1"  [ D:\School_Works\Senior\Sem2\ECE445\NiCd Charging Sim\LM317LogicTest-PSpiceFiles\SCHEMATIC1\test1.s
+
+
+ ****     BJT MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               QbreakN         
+               NPN             
+       LEVEL    1            
+          IS    1.000000E-12 
+          BF  100            
+          NF    1            
+          BR    1            
+          NR    1            
+         ISS    0            
+          RE    0            
+          RC    6            
+         CJE    0            
+         VJE     .75         
+         CJC    0            
+         VJC     .75         
+         MJC     .33         
+        XCJC    1            
+         CJS    0            
+         VJS     .75         
+          KF    0            
+          AF    1            
+          CN    2.42         
+           D     .87         
+
+
+**** 02/24/22 18:10:17 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-test1"  [ D:\School_Works\Senior\Sem2\ECE445\NiCd Charging Sim\LM317LogicTest-PSpiceFiles\SCHEMATIC1\test1.s
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(N00046)   22.0000 (N00104)   20.5020 (N00117)    0.0000 (N00125)   20.5030     
+
+(N00200)   19.9480 (N00346) 21.50E-09 (X_U1.VXX)   20.5030                      
+
+(X_U1.VYY)   20.5030                  (X_U1.VZZ)   20.5030                      
+
+(X_U1.IN_OK)    1.0000                (X_U1.ISENSE) 19.95E-06                   
+
+(X_U1.N313070)   20.5030              (X_U1.N313078)   22.0000                  
+
+(X_U1.N16779363)    1.0000            (X_U1.N16785459)    1.0000                
+
+(X_U1.N16798777)   20.5030            (X_U1.N16830911)   20.5000                
+
+(X_U1.N16857443)   20.5030            (X_U1.U1_IN_INT)    1.0000                
+
+(X_U1.U1_N41579)    1.2500            (X_U1.U1_N41583) 71.37E+03                
+
+(X_U1.U1_N41605) 71.37E+03            (X_U1.U1_N41885)   20.5000                
+
+(X_U1.U1_N41941)    1.2500            (X_U1.U1_N53690)    1.2500                
+
+(X_U1.U1_DROPOUT)    1.5000           (X_U1.U1_N15528024)    1.5000             
+
+(X_U1.U1_N15528092)    1.0000         (X_U1.U1_N15528152)    1.0000             
+
+(X_U1.X_U1_U6.YINT)    1.0000         (X_U1.X_U1_U7.Yint)    1.0000         
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1        -2.010E-05
+    V_V2         2.150E-11
+    X_U1.V_U1_V1   0.000E+00
+    X_U1.V_U1_V5   0.000E+00
+    X_U1.X_F1.VF_F1   1.995E-05
+    X_U1.X_H1.VH_H1   1.995E-05
+
+    TOTAL POWER DISSIPATION   4.42E-04  WATTS
+
+
+
+          JOB CONCLUDED
+
+**** 02/24/22 18:10:17 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-test1"  [ D:\School_Works\Senior\Sem2\ECE445\NiCd Charging Sim\LM317LogicTest-PSpiceFiles\SCHEMATIC1\test1.s
+
+
+ ****     JOB STATISTICS SUMMARY
+
+
+******************************************************************************
+
+
+
+  License check-out time            =       57.17
+  Total job time (using Solver 1)   =        1.16
+
