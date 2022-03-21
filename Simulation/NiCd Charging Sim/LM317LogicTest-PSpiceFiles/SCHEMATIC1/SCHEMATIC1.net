@@ -1,0 +1,11 @@
+* source LM317LOGICTEST
+X_U1         N00046 N00104 N00125 LM317-N_TRANS
+Q_Q1         N00104 N00346 0 QbreakN 
+D_D1         N00104 N00200 Dbreak 
+V_V1         N00046 0 22Vdc
+R_R3         N00346 N00117  1k TC=0,0 
+R_R4         0 N00200  1Meg TC=0,0 
+R_R6         N00104 N00125  18 TC=0,0 
+C_C1         0 N00046  0.1u  TC=0,0 
+V_V2         N00117 0  
++PULSE 0 0 500ns 0 0 500ns 1000ns

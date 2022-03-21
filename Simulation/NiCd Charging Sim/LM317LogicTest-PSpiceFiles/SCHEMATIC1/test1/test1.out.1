@@ -1,0 +1,49 @@
+
+**** 02/24/22 01:41:14 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-test1"  [ D:\School_Works\Senior\Sem2\ECE445\NiCd Charging Sim\LM317LogicTest-PSpiceFiles\SCHEMATIC1\test1.s
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "test1.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\cds_spb_home\cdssetup\OrCAD_PSpiceTIPSpice_Install\17.4.0\PSpice.ini file:
+.lib "nom_pspti.lib" 
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 1000ns 0 
+.OPTIONS ADVCONV
+.OPTIONS FILEMODELSEARCH
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source LM317LOGICTEST
+X_U1         N00046 N00104 N00125 LM317-N_TRANS
+Q_Q1         N00104 N00346 0 QbreakN 
+D_D1         N00194 N03390 Dbreak 
+V_V1         N00046 0 5
+V_V2         N00117 0 5Vdc
+R_R3         N00346 N00117  3.3k TC=0,0 
+R_R6         N00194 N00125  1 TC=0,0 
+R_R7         N00194 N00104  1k TC=0,0 
+
+**** RESUMING test1.cir ****
+.END
+
+ERROR(ORPSIM-15141): Less than 2 connections at node N03390.
+
