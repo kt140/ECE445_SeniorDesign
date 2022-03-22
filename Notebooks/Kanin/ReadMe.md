@@ -17,7 +17,7 @@ Utilized LTSpice to simulate our Buck converter that is being cascaded together 
 
 We can see this simulation result from the images below:
 
-![](../Simulation/output-buck-mppt-buck-boost.png)
+![](../../Simulation/output-buck-mppt-buck-boost.png)
 
 ![](../../Simulation/output-zener-diode-voltage-regulator.png)
 
@@ -33,3 +33,10 @@ Some of the issues that came about from the initial PCB design is that the curre
 
 Without the current amplifier as a viable solution, we needed to quickly pivot away from this idea. The solution that was eventually decided was to utilize a LM2575 adjustable output buck regulator as it is rated for 1 A operation on the output side. During this time we looked at two companies, Microchip and Renesas, and they had options to request for free samples. Ultimately I decided to go with Microchip as they have an option to request for free samples. As a contingency plan, I've also requested free samples from both companies.
 
+# 03/21/2022 - Corrections to the 7 V input to the MCU
+
+During this time, we encountered problems to do with the sourcing of our parts. A lot of manufacturers had large lead times and so we needed to check the ECE supply store for those parts instead. We found that the LM317T was available there and so it made more sense for us to design the schematic based on that. This can be referenced in the image below.
+
+![](/Kanin/MCU_INPUT_7V.jpg)
+
+This is the schematic that will be used to change our input voltage to a constant 7 V. According to the datasheet as referenced on [mouser](https://www.mouser.com/datasheet/2/389/cd00000455-1795522.pdf), we can see that the maximum difference that we can have between the input and output voltage is 40 V. Our solar panel is rated at 22 V and so regulating the output to 7 V, in theory, should not be an issue.
