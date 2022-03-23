@@ -107,7 +107,8 @@ This allows the device to bypass the USB communication protocol, and directly co
 
 
 
-![](/images_markdown/DCP-10w.PNG)
+![](/images_markdown/DCP-10w.PNG?raw=true "Title")
+
 
 ![](/images_markdown/Ideal-DCP-config.png)
 
