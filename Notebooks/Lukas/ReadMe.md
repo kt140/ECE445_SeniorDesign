@@ -110,6 +110,6 @@ This allows the device to bypass the USB communication protocol, and directly co
 ![](https://github.com/kt140/ECE445_SeniorDesign/blob/main/Notebooks/Lukas/images_markdown/DCP-10W.PNG)
 
 
-![yes](/images_markdown/Ideal-DCP-config.png "yes")
+![yes](\images_markdown\Ideal-DCP-config.png "yes")
 
 If this does not work, there is also the option of buying a premade board to do this for us, and simply interface [this board](https://www.seeedstudio.com/Lipo-Rider-Plus-p-4204.html?gclid=CjwKCAjw_tWRBhAwEiwALxFPoR--l6bB3jGPfZKoGkSbGB3EaNlgAs9KFKoq4bSAiMn4nbsBqeK3YBoCO0kQAvD_BwE "this board") with MPPT. 
