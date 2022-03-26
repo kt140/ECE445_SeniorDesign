@@ -46,3 +46,9 @@ This is the schematic that will be used to change our input voltage to a constan
 After finishing our MCU 7 V output, we needed to create the USB charging as well as the buck converter for MPPT. So I have outlined and created the formulas for calculating the component sizes for this particular buck converter. This can be referenced [here](https://colab.research.google.com/drive/1b9fjIzCAx_Giu6asjYqOtdzP055kivm0?usp=sharing). The code is essentially a plug and chug version for calculating the buck converter output. We're able to choose our input specifications and adjust that accordingly. In terms of creating the USB charging, I utilized some of the information procured by Lukas to create and build that initial schematic.
 
 ![](BUCK_%26_USB_MODULE.jpg)
+
+# 03/26/2022 - Fixing schematic to work with LDO
+
+To ensure that our voltage output is suitable for charging with this LDO, we made sure to simulate this output on LTspice to verify that LDO's are the right way to display those outputs. I've also imported the 5V/2A output LDO into our schematic. From here on out, we should be able to perform some routing to complete this design.
+
+![](BUCK-LDO-USBCHARGER-SIM.jpg)
