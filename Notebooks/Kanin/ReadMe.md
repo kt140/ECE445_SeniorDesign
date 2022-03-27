@@ -52,3 +52,7 @@ After finishing our MCU 7 V output, we needed to create the USB charging as well
 To ensure that our voltage output is suitable for charging with this LDO, we made sure to simulate this output on LTspice to verify that LDO's are the right way to display those outputs. I've also imported the 5V/2A output LDO into our schematic. From here on out, we should be able to perform some routing to complete this design.
 
 ![](BUCK-LDO-USBCHARGER-SIM.jpg)
+
+In addition to that, I also implemented a way to help us drive our buck MPPT through utilizing a gate driver. For these purposes, I have chosen to use the LM5109 as way to provide the MOSFETs with a complimentary switching signal. This allows us to drive our buck converter MOSFETs. These can be referenced through the diagram below.
+
+![](INITIAL_GATE_DRIVERS.jpg)
