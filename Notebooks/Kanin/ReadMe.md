@@ -56,3 +56,19 @@ To ensure that our voltage output is suitable for charging with this LDO, we mad
 In addition to that, I also implemented a way to help us drive our buck MPPT through utilizing a gate driver. For these purposes, I have chosen to use the LM5109 as way to provide the MOSFETs with a complimentary switching signal. This allows us to drive our buck converter MOSFETs. These can be referenced through the diagram below.
 
 ![](INITIAL_GATE_DRIVERS.jpg)
+
+# 03/29/2022 - Finalizing Kicad file
+
+Within this time frame, we were required to submit the PCB for second round orders. This was one of our final opportunities to create a order a PCB through the university. During this time, I was able to create and route the first version of our PCB and send this in to the ECE 445 team.
+
+![](Powerboard_v1.png)
+
+Highlighted above is the first version of our powerboard that has been submitted to the ECE 445 course staff. After creating the powerboard, I then moved on to creating the bill of materials for the PCB. This was wher ewe encountered an issue with the current board. A lot of the parts such as resistors and capacitors used footprints associated with 0805 and other SMD style footprints. These were either not available on the market or were extremely expensive. As a result, we needed to quickly pivot away from this particular version of the PCB.
+
+# 03/30/2022 - Finalizing version 2 of powerboard
+
+We had to switch our resistors and capacitor footprints to ceramic capacitors and other through hole resistors. This took some time however ultimately this allowed us to choose and create our bill of materials accurately.
+
+![](Powerboard_v2.jpg)
+
+The diagram referenced above is version 2 of our power board with the resistors and capacitor footprints correctly sized. This was eventually ordered through JLC and is expected to arrive the following week.
