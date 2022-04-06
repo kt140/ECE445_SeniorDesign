@@ -72,3 +72,7 @@ We had to switch our resistors and capacitor footprints to ceramic capacitors an
 ![](Powerboard_v2.jpg)
 
 The diagram referenced above is version 2 of our power board with the resistors and capacitor footprints correctly sized. This was eventually ordered through JLC and is expected to arrive the following week.
+
+When creating the bill of materials, we also needed to order all of our parts through digikey.
+
+![](version2_BOM.jpg)
