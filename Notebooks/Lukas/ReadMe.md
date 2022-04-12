@@ -32,21 +32,39 @@
     1. Using the rechargeable batteries ordered, we will ensure the output potentials are restricted to the recommended current for charging.
 
 
-
 # 01/31/2022 - Researching DC-DC topologies and Battery Safety Precautions <a name="projectproosal"></a>
+The current implementation I suggested is the Forward or flyback Converter, which uses a three winding transformer to deliver power from the primary winding to the secondary output windings. A picture of the converter can be seen below, wehre the transformer provides galvanic isolatioon between the input and output. This would be ideal to use in our project, because it clearly separates the USB 5V/2A from the NiCd 1.6V/70mA. A downside of this approach is that the solar panel input has a direct path to the output, where MPPT may deliver more power then the load can handle. Furthermore, the closed loop control loop with feedback would have to monitor all three windings of the transformer, which would increase the complexity of the software implementation. 
+
+My idea outlined in the RFA includes several batteries that must store some charge. A consumer product needs to regulate a battery to store excess energy, as well as the USB charging protocol and NiCd batteries. The course policy on battery safety has been reviewd by each of my team members, and the associated signature agreement is located in this GitHub. We plan on limiting the total current, implementing fault protection, and reverse polarity detection on each battery, to ensure there is no safety concerns or misconduct according to IEEE guidelines. 
 
 # 02/03/2022 - Research on MPPT and Cascaded Converters<a name="projectproosal"></a>
 
+
+
+
+
 # 02/6/2022 - Begin Working on Project Proposal<a name="projectproosal"></a>
+
+After looking at the rubric for the Project Proposal, I began working on an outline of different subsystems and the tolerance analysis. The primary focus was doing simulations of a Forward conevrter, which can be found in the directory "Not uploaded lol." Thee LTSpice simulations shows a normal forward converter where the user must enter the specifgied input voltage and the target duty cycle. After assigning values to the capacitors, switches, and transformer, I was able to acieve a working topology that delivers the correct amopunt of pweor to both of the output terminals. One downside I noticed is that the two output voltages are coupled together,  meaning any peturbation in the duty cycle affects both voltages. If we were to apply a closed loop control algorithm, where we measure the current and adjust the duty cycle, we would not be able to individually control either output. This is a large problem with our current design, and is further addressed in the Tolerance Analysis. 
+
+This problem can be solved by modifying the MPPT algorithm to supply the maximum allowed power, by setting an upper bound on the output solar panel current. This upper bound restricts the current on the primary winding of our transformer, which is mathematically represented as 𝐼 . Thus, if we can place an upper bound in by $I_1N_1 + I_2N_2 + I_3N_3 = 0$
+programming the microcontroller, then there will also be an upper bound on the sum of the output currents on $I_1$, and the total output current $I_2 + I_3$ does not exceed any ratings. Furthermore, in the no load conditions when $I_2 = 0$ and $I_3 = 0$, we can focus on providing a path for the current 𝐼 to the charge storage unit. This is the strength of using a three winding transformer in $I_1$ our design, but we must also be prepared to account for additional losses, such as the magnetizing inductance of the system.
+
+
 
 # 02/08/2022 - First TA Meeting <a name="projectproposal"></a>
 
+The first TA meeting was mainly to demonstrate that our notebooks, were all in one repository on GitLab. The project has several circuits, such as Li-Ion battery charging, that we have not had experience designing. We further discussed the need for software in the project, where we must select an appropritate MCU. After speakign with Professor Schuh, he reccomended that we use an ATMEGA328P, rather then an entire Arduino Uno. This works well for us, since I have expereince with the Arduino IDE. We then set our weekly meeting time to 2 PM on Fridays. 
+
 # 02/13/2022 - Solar Panel Research <a name="designdoccheck"></a>
+One thing that is still ambiguous for our project, is how we will test our device using a photovoltaic power source. The cost of solar panels is larger then our budget, where we cannot afford a compact solar array with a maximum output of 15-20 W. One idea I discussed with Kanin is using the solar panel attatched to a single bench in the lab, rather then pluggin our device directly into the terminals. This is how we both worked with solar panels in the Power Lab, but the solar panel in the Senior Design Lab is cluttered with old projects. We do not feel comfortable disassembling wires from teams that have not cleaned up after themselves. I emailed Professor Schuh for his suggestion on the best course of action, but he has not emailed me back. 
+
 
 # 02/15/2022 - Purchased ATMEGA328P as the MCU <a name="designdoccheck"></a>
-
+Today, I went to the ECE Supply shop and bought an ATMEGA329P MCU before they went out of stock. Many microcontrollers are not available online due to the supply shortage, so I paid the cost out of pocket to secure the part in our design. The next step is figuring out how we will program the MCU while it is assembled on the final version. 
 
 # 02/18/2022 - Second TA Meeting <a name="designdoccheck"></a>
+After we were able to put more thought into each subsystem of the project, such as the current and voltage regulation, input power manmagement, etc., the main task was to finish securing the details of each circuit. We have several deadlines in the course, including the soldering assignment and our DDC, so we discussed each of our responsibilities for the following week. I began writing the Design document while looking over the power electronics needed, Wonjoon would help designing the circuits needed to interface with the MCU, and Kanin would help simulate and design the power converter. 
 
 # 02/20/2022 - Solar Panel Inspection <a name="designdoccheck"></a>
 Today, I visited the lab to verify the solar panel we had access to. I needed to look at the rated power and standard operating conditions of the solar panel, such that we could finalize the input specifications to our DC DC converter. This can be seen in the image below, where all of the key parameters are listed. We should further note that we will not be able to dissipate 100 W of power, thus we have to include some kind of large energy storage unit or limit the amount of power we can harness from the solar panel. The latter is the better option, where we can simply cover a fraction of the solar panel with some anti reflective coating or shade. We do not expect to dissipate over 20 W of power in our project, which would allows us to eliminate $\frac{4}{5}$ of the solar cells  ( $P_{max}/5  = 20 \ W$ ). Further research needs to be done on the solar panels data shee, in order to know exactly what area needs to be shaded. One tradeoff of this method is that we will no longer be able to use the parameters listed in the image below, because they are meant to describe the entire solar array. We will have to do furhter testing with the solar panel, to redefine $V_{OC}$, $I_{SC}$, and $P_{MAX}$ with 1/5 of the solar array. The second image shows a detail image of the solar panels connectors, which we need to find the appropriate electrical connection for. 
