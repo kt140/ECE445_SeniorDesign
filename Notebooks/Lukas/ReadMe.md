@@ -49,19 +49,30 @@
 # 02/18/2022 - Second TA Meeting <a name="designdoccheck"></a>
 
 # 02/20/2022 - Solar Panel Inspection <a name="designdoccheck"></a>
+Today, I visited the lab to verify the solar panel we had access to. I needed to look at the rated power and standard operating conditions of the solar panel, such that we could finalize the input specifications to our DC DC converter. This can be seen in the image below, where all of the key parameters are listed. We should further note that we will not be able to dissipate 100 W of power, thus we have to include some kind of large energy storage unit or limit the amount of power we can harness from the solar panel. The latter is the better option, where we can simply cover a fraction of the solar panel with some anti reflective coating or shade. We do not expect to dissipate over 20 W of power in our project, which would allows us to eliminate $\frac{4}{5}$ of the solar cells  ( $P_{max}/5  = 20 \ W$ ). Further research needs to be done on the solar panels data shee, in order to know exactly what area needs to be shaded. One tradeoff of this method is that we will no longer be able to use the parameters listed in the image below, because they are meant to describe the entire solar array. We will have to do furhter testing with the solar panel, to redefine $V_{OC}$, $I_{SC}$, and $P_{MAX}$ with 1/5 of the solar array. The second image shows a detail image of the solar panels connectors, which we need to find the appropriate electrical connection for. 
+
+![](images_markdown/Solar_panel.jpg)
+
+![](images_markdown/Panel_Connector.jpg)
 
 # 02/21/2022 - Design Document Check <a name="designdoccheck"></a>
+The design document went well today, which allowed us to receive good feedback about our Tolerance Analysis. Originally, we mentioned some of the challenges we might run into using different DC DC converter topologies. The DC DC power subsytem is the centerpiece of our project, but we have been struggling to develop it in detail because we do not have access to the necessary software, such as MATLAB and SIMULINK packages. We further were naive and expected to buiy a small solar array that could be incorporated into the final consumer design, but solar panels are quite expensive during the supply shortage. We would need to spend $80 to reach 16 W of power. Although we proposed possible solutions and research in different algorithms, we were told that we should work through the math of a criticial subsytem, and that simply putting the equations was not enough. Kanin and I then began simulating a Buck and a Buck Boost, the main two choices we were consdiering in our design topology, in LTSPice, using the corner points of the Renogy Solar Panel. We used a python script to simulate different duty cycles, where the cascaded DC DC converter could reliable create a 5-7 V Power Signal. 
+
+
 
 # 02/22/2022 - Design Document Submission #1 <a name="designdoc"></a>
+I began working on a design document in latex and in google docs. Thwe google docs was meant to be a quick place where we could collaborate ideas, and then the final edited versions can be transferred to Latex. Today I was able to write the Introduction and part of the MPPT subsytem and related circuits. Furthermore, I began to sketch an image for the conceptual design of the project. I will add that image here once I am finished. 
 
+![](images_markdown/Consumer_Design.jpg)
 
 # 02/23/2022 - Design Document Submission #1 <a name="designdoc"></a>
 
+Continued working on the design document as a team. There were several moving parts to each subsytem, and we mainly worked together to understand how each piece fit together. This further allowed us to share all of the resdults we had found, making sure everyone was up to date on the project. One thing that is a point of problem, is that we are still unable to simulate our MPPT algorithm and do not have time to develop robust code in c/c++ to test any algorithms ourselves. We have mainly been loking at research papers, [like this one](https://github.com/kt140/ECE445_SeniorDesign/blob/main/Notebooks/Lukas/Resources/MPPT-and-optimal-Li-ion.pdf "like this one").
 
-# 02/24/2022 - Design Document Submission #1 <a name="designdoc"></a>
 
 # 02/25/2022 - Weekly TA Meeting <a name="designdoc"></a>
 
+During this weeks TA meeting, we discussed how much progress we have made before the PCB Check next week. Our group has made significant headway on the MCU and NiCD Battery charging subsystems, in part thanks to Wonjoon developing the MCU PCB. For my side of things, I am very behind designing the power board PCB, because we have not finished selecting the parts, such as current sensors, gate drivers, and control ICs. Many of the most suitbale parts are not in stock do to the supply and manufacturing shortage, so we have been scouring the internet that have different ICs to do unit tasks within our design. Once these components have been selected and more simulation has been done to compute the maximum current and voltages through our pwoer electronics, we can begin routing the PCB. We will be able to turn a PCB for the PCB Review, but we will not have our entire project designed and implemented. This is also in part due to exams in my other classes, on top of writing assignments for this course. 
 
 # 02/28/2022 - Heat Sink Considerations <a name="designdoc"></a>
 
