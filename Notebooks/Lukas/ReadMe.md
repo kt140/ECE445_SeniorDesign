@@ -37,10 +37,13 @@ The current implementation I suggested is the Forward or flyback Converter, whic
 
 My idea outlined in the RFA includes several batteries that must store some charge. A consumer product needs to regulate a battery to store excess energy, as well as the USB charging protocol and NiCd batteries. The course policy on battery safety has been reviewd by each of my team members, and the associated signature agreement is located in this GitHub. We plan on limiting the total current, implementing fault protection, and reverse polarity detection on each battery, to ensure there is no safety concerns or misconduct according to IEEE guidelines. 
 
-# 02/03/2022 - Research on MPPT and Cascaded Converters<a name="projectproosal"></a>
+# 02/03/2022 - Research on MPPT <a name="projectproosal"></a>
+
+I have looked into several different algorithms that can be used to obtain the maximum power point. The ones we will be able to implement are Peturb and Observe, Incremental Conduction, or Ripple Correlation. Ripple correlation is used for DC-AC applications, where as the other two can be used to power a DC DC converter. Peturb and Observe operates by making small changes to the duty cycle, and oberserving the change in output power. If the change in the duty cycle caused more power to be consumed, the duty cycle is incremented, otherwise it is decremented. What is convenient about this algorithm is that we can measure the current through the inductor in a closed loop feedback. The last algorithm we can use is the Incremental Conduction Algorithm, which is similar to Peturb and Obsevre, but involves computing the $\frac{dI}{dV}=0$, in order to ensure we converge to the maximum power point. It is more computationally expensive then the Peturb and Observe with slower convergence, but it minimizes unwanted oscillations at the output. Hence, picking the appropriate algorithm is a tradeoff beteween simplicity versus accuracy. 
 
 
 
+https://www.hindawi.com/journals/ijp/2016/1728398/
 
 
 # 02/6/2022 - Begin Working on Project Proposal<a name="projectproosal"></a>
@@ -75,6 +78,9 @@ Today, I visited the lab to verify the solar panel we had access to. I needed to
 
 # 02/21/2022 - Design Document Check <a name="designdoccheck"></a>
 The design document went well today, which allowed us to receive good feedback about our Tolerance Analysis. Originally, we mentioned some of the challenges we might run into using different DC DC converter topologies. The DC DC power subsytem is the centerpiece of our project, but we have been struggling to develop it in detail because we do not have access to the necessary software, such as MATLAB and SIMULINK packages. We further were naive and expected to buiy a small solar array that could be incorporated into the final consumer design, but solar panels are quite expensive during the supply shortage. We would need to spend $80 to reach 16 W of power. Although we proposed possible solutions and research in different algorithms, we were told that we should work through the math of a criticial subsytem, and that simply putting the equations was not enough. Kanin and I then began simulating a Buck and a Buck Boost, the main two choices we were consdiering in our design topology, in LTSPice, using the corner points of the Renogy Solar Panel. We used a python script to simulate different duty cycles, where the cascaded DC DC converter could reliable create a 5-7 V Power Signal. 
+
+We have also decided to change the DC DC converter used in our project. We have been looking at doing a cascaded converter, instead of a Flyback converter, because we need to regulate both the input and output voltages. Our idea is that we can use the MPPT algorithm to extract the maximum power from the solar panel, and then have a second DC-DC converter in series. The secondary DC-DC converter would have a control algorithm wrapped around it, which restricts the output to 5V regardless of the input. The two most common converters used are a Buck-Boost or a Boost-Buck, which both can be characterized by the formula $V_{out} = \frac{DV_{in}}{1-D}$. This 
+
 
 
 
