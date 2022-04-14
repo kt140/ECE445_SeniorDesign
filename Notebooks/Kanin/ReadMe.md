@@ -65,7 +65,7 @@ Within this time frame, we were required to submit the PCB for second round orde
 
 Highlighted above is the first version of our powerboard that has been submitted to the ECE 445 course staff. After creating the powerboard, I then moved on to creating the bill of materials for the PCB. This was wher ewe encountered an issue with the current board. A lot of the parts such as resistors and capacitors used footprints associated with 0805 and other SMD style footprints. These were either not available on the market or were extremely expensive. As a result, we needed to quickly pivot away from this particular version of the PCB.
 
-# 03/30/2022 - Finalizing version 2 of powerboard
+# 03/30/2022 - Finalizing version 2 of power board
 
 We had to switch our resistors and capacitor footprints to ceramic capacitors and other through hole resistors. This took some time however ultimately this allowed us to choose and create our bill of materials accurately.
 
@@ -76,3 +76,11 @@ The diagram referenced above is version 2 of our power board with the resistors 
 When creating the bill of materials, we also needed to order all of our parts through digikey.
 
 ![](version2_BOM.jpg)
+
+# 04/11/2022 - Soldering of the power board
+
+Our parts arrived a little faster than anticipated given that we were able to order them on JLC PCB. I have spent these past two days soldering these parts onto our PCB. During the soldering process, we realized that we were also missing some parts. Notably we were missing the connectors as well as the diodes like 1N4002. As a result, we needed to make a second order to reincorporate some of those parts back onto our BOM.
+
+![](half_finished_boards.jpg)
+
+The only components that are left for soldering are the 1N4002's and the phoenix connectors which are coming in later. These are estimated to arrive some time by next week.
