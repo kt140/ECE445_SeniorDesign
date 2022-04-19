@@ -84,3 +84,11 @@ Our parts arrived a little faster than anticipated given that we were able to or
 ![](half_finished_boards.jpg)
 
 The only components that are left for soldering are the 1N4002's and the phoenix connectors which are coming in later. These are estimated to arrive some time by next week.
+
+# 04/18/2022 - Coming back after covid
+
+After a week pause due to covid, I have finally had a chance to test the PCB. Lukas mentioned earlier in the week that there were problems with the LDO itself. The LDO was not able to step the voltage down to 7 V to power the MCU. During my time in the lab, I managed to figure out that it was largely due to a clearance voltage. The voltage needed to be around 4-5 V higher than 7 for the LDO to consistantly output 7 V. When we ramped up this voltage, we found that the LDO was able to step this down to 8 - 9 V which is suitable for our MCU to operate at.
+
+We then proceeded to test the buck converter. The buck converter itself is problematic as we were not getting the switching output that we wanted. This is largely due to the gate driver IC being very unstable at points. Furthermore there are some inconsistencies with the output voltage of our buck. As a result, this is something in which we have to continue to probe and monitor.
+
+Another issue is that our TPS USB charging unit is not neccesarily working properly. This will something that will need to continue to be probed.
