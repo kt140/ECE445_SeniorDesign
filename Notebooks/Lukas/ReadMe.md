@@ -183,6 +183,41 @@ If this does not work, there is also the option of buying a premade board to do 
 
 # 03/25/2022 - TA meeting and Team Meeting  <a name="designdoc"></a>
 
-The first round of parts being ordered were delivered this weke, but we have not recieved our MCU board to begin assembly and testing. This board is scheduled to arrive over the weekend, right before the second PCB order deadline. The focus of the TA meeting (3:45 PM) was to ensure we were designing our PCBs according to course standards, similar to the material covered during the PCB design review. With the second deadline being shortly after spring break, and our team being behind for several personal reasons, we talked about each aspect of the power PCB board that were not finalized. This included, the placement of current sensors, discussion of replacement parts, clearance for heat sinks, and USB charging safety. Although we have schematics for these designed in the KiCad schematic editor, we have not been able to simulate the MPPT fucntionality, which made us fall behind in the PCB routing and external connections. 
+The first round of parts being ordered were delivered this week, but we have not recieved our MCU board to begin assembly and testing. This board is scheduled to arrive over the weekend, right before the second PCB order deadline. The focus of the TA meeting (3:45 PM) was to ensure we were designing our PCBs according to course standards, similar to the material covered during the PCB design review. With the second deadline being shortly after spring break, and our team being behind for several personal reasons, we talked about each aspect of the power PCB board that were not finalized. This included, the placement of current sensors, discussion of replacement parts, clearance for heat sinks, and USB charging safety. Although we have schematics for these designed in the KiCad schematic editor, we have not been able to simulate the MPPT fucntionality, which made us fall behind in the PCB routing and external connections. 
 
-After a few hours of independent work, we also had a team meeting at 8 PM to discuss what each team member could focus on. Wonjoon would focus on the MCU code and assembly of the MCU board once it is delivered, whereas Yei and I will do all we can to make sure the power board PCB will not have to be ordered a second time. We further discussed the lack of components in stock on major carriers like digikey, suggesting to use breakout baords for safe USB charging and UART conversion. This is the easiest way for us to proceed in the project, without having extra safety concerns when testing. 
+After a few hours of independent work, we also had a team meeting at 8 PM to discuss what each team member could focus on. Wonjoon would focus on the MCU code and assembly of the MCU board once it is delivered, whereas Yei and I will do all we can to make sure the power board PCB will not have to be ordered a second time. We further discussed the lack of components in stock on major carriers like digikey, suggesting to use breakout boards for safe USB charging and UART conversion. This is the easiest way for us to proceed in the project, without having extra safety concerns when testing. 
+
+
+# 03/27/2022 - Worked with Kanin to finish Schematics  <a name="designdoc"></a>
+
+With the second order PCB deadline around the corner, Kanin and I have been developing different parts of our PCB part. Previously, we were working in different KiCad Schematics, each downloading the ECAD file from Mouser as we each selected different parts. I had looked over the parts needed for the USB 10 W charging subsytem, as well as the current sensor ICs which had signals that needed to be routed to the MCU board. Today, we met up at ECEB to generate a bill of materials for the parts we needed to order and incorporated all of our schematics into a single KiCad Project. This was a tedious process, and involved both o fus scrolling through Mouser and Digikey to find the necessary model files and importing them to KiCad through the Library Loader application. we chose to move the USB charging module and closed loop feedback units into Kanin's working project, because he would take charge of the routing. The final implementation for version 1 can be seen below, which has been delayed due to a lack of supply and our team being behind on the project. 
+
+
+![](images_IPR/Buck-schematic.png)
+
+# 03/28/2022 - Routing and Ordering parts <a name="designdoc"></a>
+After all of the parts were in a skingle KiCad Project, we could begind defining the outline of th epower board as well as the different layers. We chose to use a 2 layer board for this application, because the large power traces must have certain amount of  clearance. We are estimating the maximum current to be around 4 A as a worst case scenario, so our power traces are mostly between 70-100 mils. Kanin finished most of the routing on his own, but we were both on a zoom call as I tried to help give ideas and look at trace clearance. When Kanin and I were ot working on the KiCad file together, I was finalizing the bill of materials. THe INA240 Current Sensors that are used in PWM systems only had 10 in stock on Mouser, so i quickly purchased them on my own. This allowed us to ensure the part would be in stocl, due to it taking a few days for orders to be processed through myECE. Kanin later palced this order, after this board was approved for the second round audit. 
+
+
+![](images_markdown/Buck_wirenets.png)
+![](images_markdown/Powerboard_v2.jpg)
+
+# 04/02/2022 - Panic About Shipping delay + MCU programming <a name="designdoc"></a>
+After the second PCB round order, all of our team spent some time working on the individual progress report and then focused on other classes. The PCB for our MCU arrive on 3/31, and all of the parts had been delievred to the senior design lab. We wanted to begin building this board right away, but the MCU board was delivered to Wonjoon while he was in quarantine for COVID. What makes this situation worse is that DHL, the shipping company for Version 2 of the Power board PCB, has an expected arrival date of 4/22. We paid expedited shipping on both baords, but DHL has had extremely long shipping delays for us. I do not know if this is because some of our PCBs were ordered through JLC, but this happened for both of our orders. We will contact the shipping company once our package is in the United States, hopefully it will arrive on time. 
+
+I have begun looking into the MCU programming, specifically, how we can assign values to each of the different hardware pins and how each signal will be extened over each board. Wonjoon has sent a few articles over about how we will program the Atmega328P using the Arduino IDE. We are essentially using a development board that has a UART IC on it, because there are no more parts available online.  
+
+# 04/07/2022 - Power Board PCB Arrives <a name="designdoc"></a>
+Fortunately, the power board PCB made it to the U.S. faster then anticiapted, and we were able to contact DHL for our package. The power baord was delivered to Kanin this afternoon, I had recieved a shipment from Mouser yesterday, and we had our previous part orders sitting in our locker in the senior design lab. We are now trying to get into the lab as soon as possible, to begin assembling the power board. Our plan is to solder the small ICs and SMD components under the microscope first, and then I can complete any larger components at home with my personal soldering iron. 
+
+
+Furthermore, Wonjoon is now out of quarantine and has been assembling the MCU PC. We are trying to coordinate when we can both be in the lab to test the MCU for programmability, and to test the ATMEGA328P duty cycle signals. 
+
+# 04/11/2022 - Soldering of the power board <a name="designdoc"></a>
+
+Gave Yei some of the other parts we needed. 
+# 04/13/2022 - Picked up all parts from Yei <a name="designdoc"></a>
+
+# 04/14/2022 - Final small connectors and parts for boards <a name="designdoc"></a>
+
+# 04/16/2022 - Final small connectors and parts for boards <a name="designdoc"></a>
