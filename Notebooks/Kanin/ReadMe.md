@@ -95,14 +95,20 @@ Another issue is that our TPS USB charging unit is not neccesarily working prope
 
 # 04/19/2022 - Debugging the buck converter
 
-In order to debug our buck converter, we realized that
+In order to debug our buck converter, we realized that there were potentially issues with the 
 
 # 04/20/2022 - 
 
-# 04/21/2022 - 
+# 04/21/2022 - Building the buck converter on the breadboard
+
+Swapping
 
 # 04/22/2022 -
 
 # 04/23/2022 - Creating own perfboard
+
+In order to continue with the debugging process for 
+
+![](building_perfboard.jpg)
 
 # 04/24/2022
