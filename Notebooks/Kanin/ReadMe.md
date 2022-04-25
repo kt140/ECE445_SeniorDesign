@@ -92,3 +92,17 @@ After a week pause due to covid, I have finally had a chance to test the PCB. Lu
 We then proceeded to test the buck converter. The buck converter itself is problematic as we were not getting the switching output that we wanted. This is largely due to the gate driver IC being very unstable at points. Furthermore there are some inconsistencies with the output voltage of our buck. As a result, this is something in which we have to continue to probe and monitor.
 
 Another issue is that our TPS USB charging unit is not neccesarily working properly. This will something that will need to continue to be probed.
+
+# 04/19/2022 - Debugging the buck converter
+
+In order to debug our buck converter, we realized that
+
+# 04/20/2022 - 
+
+# 04/21/2022 - 
+
+# 04/22/2022 -
+
+# 04/23/2022 - Creating own perfboard
+
+# 04/24/2022
