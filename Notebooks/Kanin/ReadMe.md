@@ -97,18 +97,31 @@ Another issue is that our TPS USB charging unit is not neccesarily working prope
 
 In order to debug our buck converter, we realized that there were potentially issues with the 
 
-# 04/20/2022 - 
+# 04/20/2022 - Building the buck converter on the breadboad
 
-# 04/21/2022 - Building the buck converter on the breadboard
+To help isolate our problems
 
-Swapping
+# 04/21/2022 - DCM and CCM issue + swapping inductor
 
-# 04/22/2022 -
+DCM and CCM calculations
+
+# 04/22/2022 - Running Simulation for buck converter correction, solving for EMI issues.
+
+https://resources.altium.com/p/create-high-current-buck-voltage-controller 
+
 
 # 04/23/2022 - Creating own perfboard
 
-In order to continue with the debugging process for 
+In order to continue with the debugging process for our buck converter, we wanted to close our EMI loops as much as possible. Normally this would require us to redo our loops by reprinting our PCB board and redesigning that process on KiCad however given the time constraints, this is no longer a possibility. As a result, we needed to utilize a perfboard to solder our parts on there. This can be referenced from the photo down below.
 
 ![](building_perfboard.jpg)
 
-# 04/24/2022
+When we tested the output of this perfboard, we ran into the same issues whereby the buck converter was only able to buck successfully up until 10 V and beyond that the switching duty signal 
+
+# 04/24/2022 Switching our buck converter swithing MOSFETs to diodes + testing functionality with 
+
+# 04/25/2022 Adding USB unit and final system integration
+Full integration, check video.
+
+
+
