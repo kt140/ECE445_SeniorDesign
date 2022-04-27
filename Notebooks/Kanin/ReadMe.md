@@ -115,7 +115,13 @@ However when we actually probe the output of our buck converter we see that the 
 
 # 04/20/2022 - Building the buck converter on the breadboad
 
-To help isolate the buck converter from the 
+To help isolate the problems with the buck converter
+
+![](testing_on_breadboard.jpg)
+
+![](testing_on_breadboard2.jpg)
+
+
 
 # 04/21/2022 - DCM and CCM issue + swapping inductor
 
