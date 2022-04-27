@@ -95,11 +95,25 @@ Another issue is that our TPS USB charging unit is not neccesarily working prope
 
 # 04/19/2022 - Debugging the buck converter
 
-In order to debug our buck converter, we realized that there were potentially issues with the 
+It was during this time that I found the issue with the gate driver IC. When double checking the VDD operating point of our operating point of our gate drivers are actually rated for 8 - 14 V. This means that the 5 V output from our MCU will not be able to power the gate drivers themselves. The only way in which we can operate the gate drivers is through rerouting our 7 V LDO. This can be seen from the image shown below. We can see that when we power the powerboard at a voltage above 10 V, that our LDO output outputs 7.8 V to power the MCU board (image referenced below).
+
+![](MCU_7V_feed.jpg)
+
+With an extra routed connection, we are now able to power the gate drivers by adding an additional jumper wire.
+
+At this point, with our gate drivers working, we used a function generator to simulate our input into our gate drivers. The function generator is able to effectively create a switching PWM signal to power both of our mosfet in our synchronous buck. For the actual demo, we will use our MCU to power this synchronous buck. The default settings that we've used can be seen in the reference image below.
+
+![](function_generator_output.jpg)
+
+In order to debug our buck converter, we realized that there were potentially issues with the buck converter. One thing that I've realized is that the buck converter actually operates in a non-linear fashion. We can see from the output image below that our buck converter is not able to produce the correct output voltage. Our duty cycle was set at 80%, which means that $V_{out} = DV_{in}$ and thus if our input voltage is 12 V, that would mean that our output voltage would be 9.6 V. 
+
+![](overall_buck_output.jpg)
+
+However when we actually probe the output of our buck converter we see that the output is onlly at 5 V. Therefore I have essentially isolated the problem to the actual operation of the buck converter. This will be something that I will look to debugging tomorrow.
 
 # 04/20/2022 - Building the buck converter on the breadboad
 
-To help isolate our problems
+To help isolate the buck converter from the 
 
 # 04/21/2022 - DCM and CCM issue + swapping inductor
 
