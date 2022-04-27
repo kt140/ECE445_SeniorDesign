@@ -97,6 +97,8 @@ Another issue is that our TPS USB charging unit is not neccesarily working prope
 
 It was during this time that I found the issue with the gate driver IC. When double checking the VDD operating point of our operating point of our gate drivers are actually rated for 8 - 14 V. This means that the 5 V output from our MCU will not be able to power the gate drivers themselves. The only way in which we can operate the gate drivers is through rerouting our 7 V LDO. This can be seen from the image shown below. We can see that when we power the powerboard at a voltage above 10 V, that our LDO output outputs 7.8 V to power the MCU board (image referenced below).
 
+![](datasheet_LM5109.jpg)
+
 ![](MCU_7V_feed.jpg)
 
 With an extra routed connection, we are now able to power the gate drivers by adding an additional jumper wire.
