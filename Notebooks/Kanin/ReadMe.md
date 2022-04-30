@@ -138,12 +138,23 @@ In order to continue with the debugging process for our buck converter, we wante
 
 ![](building_perfboard.jpg)
 
-When we tested the output of this perfboard, we ran into the same issues whereby the buck converter was only able to buck successfully up until 10 V and beyond that the switching duty signal 
+When we tested the output of this perfboard, we ran into the same issues whereby the buck converter was only able to buck successfully up until an input of 10 V and after that the output buck converter would then continue to increase but in smaller increments. An example of this is an input of 15 V produces an output of approximately 5 V at a 50% duty cycle. This is not correct especially since the output voltage is expected to be at 7.5 V.
 
-# 04/24/2022 Switching our buck converter swithing MOSFETs to diodes + testing functionality with 
+With that in mind, with that in mind
+
+# 04/24/2022 Switching our synchronous buck converter to a non-synchronous buck converter
+
+As a last attempt to help fix the issues with our non-linear output synchronous buck converter, we wanted to switch our second switching mosfet to a diode in order to create a non-synchronous buck converter instead of a synchronous buck converter. Our current diodes, the 1N4001's, are only rated for 1 A of current to flow through them. As a result, we need to account for the higher current by placing multiple diodes in parallel to increase our current capabilities.
+
+With that in mind, when we perform our functional test for the non-synchronous diode we also get the same results for the output of the buck converter. What I mean by that is that the buck converter operates in a linear manner up until 10 V input, at which point the output stays at 5 V as opposed to the theoretical value calculated from the duty cycle. Therefore we can conclude that it is not the MOSFET that is causing the issue with our buck converter. Given the time constraints of the project along with the task of potentially redesigning and implementing the buck converter we decided to stick with it and implement the 5 V charger with our current buck converter system instead as it achieves the basic functionality that we have outlined in the initial design aspects.
 
 # 04/25/2022 Adding USB unit and final system integration
-Full integration, check video.
+
+During the final integration steps, we combined both the power board and the MCU board together. Lukas has finished the switching signals for PWM generation for our synchronous switching signals and so we are able to implement a duty cycle for our synchronous buck converter. With that in mind, we attempted to test all of our subsystems and we can see that the overall current draw is approximately around 100 mA from the power source. When we probe the output of the MCU board, we are able to read 70 mA that has been used for charging the NiCd batteries. When we probe the output of the USB charging unit, we are able to probe an output of 5 V. Once these probes have been inserted, I plugged in my old smartphone using a USB-A cable and it did indeed indicate that our unit was charging.
+
+
+
+
 
 
 
