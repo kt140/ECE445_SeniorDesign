@@ -152,9 +152,11 @@ With that in mind, when we perform our functional test for the non-synchronous d
 
 During the final integration steps, we combined both the power board and the MCU board together. Lukas has finished the switching signals for PWM generation for our synchronous switching signals and so we are able to implement a duty cycle for our synchronous buck converter. With that in mind, we attempted to test all of our subsystems and we can see that the overall current draw is approximately around 100 mA from the power source. When we probe the output of the MCU board, we are able to read 70 mA that has been used for charging the NiCd batteries. When we probe the output of the USB charging unit, we are able to probe an output of 5 V. Once these probes have been inserted, I plugged in my old smartphone using a USB-A cable and it did indeed indicate that our unit was charging.
 
+
 <p align="center">
-![final_results](final_results_gif.gif)
+  <img src="final_results_gif.gif" alt="animated" />
 </p>
+
 
 It is evident from the video above that the smartphone unit that I plugged in was able to indicate that the buck converter itself is charging. As a result, we can infer from this that our project achieves its overall goal of providing a charging unit to our mobile devices or other USB capable devices.
 
