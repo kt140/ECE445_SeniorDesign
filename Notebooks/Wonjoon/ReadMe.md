@@ -77,7 +77,7 @@ All the necessary schematics were finished including the NiCd battery charging l
 
 NiCd Battery is our primary portable energy storage source where 1.2V output is available through this medium. Under some research, we decided that using Panasonic's 700mAh rechargeable battery is the best choice. To charge NiCd battery, supply constant current is the most important factor. This current rate needs to be 10% of the battery capacity (700mA * 0.1 = 70mA). To supply constant 70mA current to battery (or batteries), LM315 power management IC was chosen for its compact size and sufficient functionality. LM315 was configured to be operating in constant current output mode to achieve the constant 70mA charging. This way, as long as series battery connections are below 40V, LM315 can charge as many battery as possible at constant rate of 70mA. In addition, I wanted to add PWM control (and potentially control battery charging speed control based on the charge level) to shut off the battery charging depending on the battery charge rate. Overall circuitry was modeled using PSPICE (image below) to fine tune the charging current and PWM logic. 
 
-![NiCd Battery Charging Design Simulation](NiCd_sim.PNG) 
+![NiCd Battery Charging Design Simulation](NiCd_sim.png) 
 
 In the simulation, it is possible to see square wave voltage source representing ATMEGA's PWM pin. As 5V control pin is set high, LM315 supplies 70mA to the load and as soon as 5V is shut off, no current is provided to the load. 
 
