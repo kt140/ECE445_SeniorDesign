@@ -8,6 +8,9 @@
 * [MCU Board Routing Phase 2](#MCURouting2)
 * [Component Ordering Last Minute Edits of the Version 1](#Order1) 
 * [I2C Display Code Progress 1](#Code1)
+* [Power Board PCB Finalization](#PBF)
+* [MCU Board Assembly Day 1](#Assembly1)
+* [MCU Board Assembly Day 2](#Assembly2)
 
 # references <a name= "references"></a>
 * https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf 
@@ -84,15 +87,100 @@ Initial components were selected and order was placed. We realized that lots of 
 # 2021-03-20 I2C Display Code Progress 1 <a name= "Code1"></a>
  
  I2C display test code was written. To make this functional, Adafruit GFX Graphics library and SSD1306 library are used. Display will need to convey largely two information: Total Harvested Energy by using this device and Battery charge level. Today, battery charge level code was written along with general setup code to write custom messages. On the battery charge level display function, code to control the charging of battery was also written. 
+
+# 2021-03-30 Power Board PCB Finalization <a name= "#PBF"></a> 
  
+ Helped Yei and Lukas finishing up the power board's PCB layout. Main thing I paid attention was effective component placement for heat dissipation. Because the power board need to be able to step down upto 22V to 5V (and 7V), there will a lot of heat dissipation through out the board. In addition, 2A trace and other relatively high amp traces exist on the board. Therefore, it was important to place components carefully considering the heat dissipation. To enhance the current trances, large polygon pour was implemented on both signal layers of the board. 
+ 
+# 2021-04-02 MCU Board Assembly Day 1 <a name= "#Assembly1"></a> 
+
+ The MCU board's PCB order arrived March 31th evening and today was the first day I went into the lab to assemble the board (parts arrived week before). Before soldering everything on to the board, labeling all the components with their dedicated component numbers (R1, C1, etc...) is an important step to make the assembly process more fluent. When I label the components, I was also able to find that two of the components, R10 and U6, will not work for the PCB. I immediately placed an alternative order after realizing this. 
+ 
+ ![Day 1 Assembly Progress](Assembly_pt1.jpg)
+ 
+ Like the picture above, all the SMD components (other than the ceramic resonator and U6) were soldered today. Ceramic resonator has smaller pad so I wanted to leave it for tomorrow and have it soldered with my TS100 soldering iron K1 tip to make sure that component pad is making a good connection according to how the datasheet describes ("hand soldered and 90% of the component pad must be making contact with the PCB pad"). Most connections looks genuine and was tested with multimeter continuity test after soldering. 
+ 
+# 2021-04-03 MCU Board Assembly Day 2 <a name= "#Assembly2"></a> 
+
+Today, every components other than U6 (ordered and not arrived yet) and J6 (over-the-shelf USB to UART conversion module) was soldered. Again, all the connections were tested with multimeter to make sure all the connections are genuine.  
+
+![Day 2 Assembly Progress](Assembly_pt2.jpg)
+
+There are some unsoldered pads on the top area of the PCB. These components are for the FT231 USB to UART chip which went out of stock until the end of the semester. Because we made alternative solution of using over-the-shelf board for this, pads are left unsoldered so that USB programming capability is unaffected and just solely controlled by the over-the-shelf board. 
+
+It is also possible to note some bodge wires coming from U5 to R10 and switch connections. Switch polarity on the original trace were flipped so I used bodge wire to correct the connections during today's assembly process. U5 to R10 is the NiCd battery charging logic. Yesterday, I ordered new R10 SMD resistor but I attempted to not use R10 SMD pad and use existing equal spec through hole resistor. Bodge wire was used to connect LM317 (U5) output to one leg of R10 and the other leg was shorted to D2's pad. The leftover pad of R10 will not influence the signal here since via connecting one end of the R10 pad is from the U5 output and this functionality is being replaced by the bodge wire. The other pad is necessary to be connected to the rest of the components since this is connected with the ATMEGA328 battery charging control pin. 
+
+# 2021-04-05 MCU Board Test Day 1 <a name= "#Test1"></a> 
+The first thing that needs to be tested after the assembly is power logic. This logic is important since this not only relates to the battery charging, but also, power the MCU itself as well. The main input power to the MCU board is coming from the power board in the form of 7V. Although the MCU is operating with 5V, 7V is needed for the convenient USB debugging feature. This feature is not the most necessary function (being able to debug regardless of the power source) but is convenient for the developers. 
+
+Inputted 7V goes to two paths: 5V step down logic to power the MCU and Battery Charging logic. U6 IC missing is the LDO that does the step down functionality but since it didn't arrive yet, was proto-boarded using the jumper wire (picture below).
+
+![Test Day 1 5V prototype logic](protoBu6.jpg)
+
+However, 5V step down didn't work. One assumption behind this was that because the 5V output pad of U6 has a large surface area, simple wire connection will not be able to deliver proper power. Therefore, the board will be tested tomorrow when U6 arrives. 
+
+# 2021-04-06 MCU Board Test Day 2 <a name= "#Test2"></a> 
+U6 arrived today and was soldered in and I began testing the power logic again. The result was successful. I was able to get constant 5V stepped down reading throughout the MCU board. Because the PCB has dedicated power (5V) layer and ground layer, this means any components using 5V power source will be getting clean power. Picture of probing 5V test point on DMM is below. 
+
+![Test Day 2 5V](5V_test.jpg)
+
+Since the main 5V power output is working, I tested 7V and 3.3V power traces as well. They all seemed to be outputting correct voltage in acceptable tolerance ranges. 
+
+Other MCU operational logic such as reset and basic programming pins were wired and functioning correctly in terms of the continuity test. Therefore, the next step will be bootloading the ATMEGA328 and trying to upload test LED blinking program. 
+
+# 2021-04-07 MCU Board Test Day 3 <a name= "#Test3"></a> 
+Today, I was able to bootload the ATMEGA328P successfully using my Arduino UNO board as a ISP device. The arduino IDE seems to recognize the board environment well since when it was bootloaded successfully, settings were automatically set so to match MCU chip (ATMEGA328P) and the 16MHZ resonator installed on-board. 
+
+However, I was not able to successfully load the program. Whenever I plug in the over-the-shelf FTDI chip to the computers, error message indicating corrupted USB device pops up. This not only popped up in my laptop but also in desktop in the lab and all of my partners' laptops. 
+
+# 2021-04-09 MCU Board Test Day 4 <a name= "#Test4"></a> 
+Trying to debug the over-the-shelf USB to UART board, I tried multiple different cables and tried to download various different FTDI chip drivers. It seems like this board need specifically 2.8.3 version of the driver. However, ver. 2.8.3 of the FTDI driver was not available anywhere. I decided that it will not be worth trying to debug over-the-shelf board and moved on after ordering new USB to UART board. 
+
+![Faulty FTDI Chip](faulty_ftdi.jpg)
+
+# 2021-04-11 MCU Board Test Day 5 <a name= "#Test5"></a> 
+The new USB to UART conversion board arrived and was soldered in to the redirected PCB traces. After it was plugged in, my laptop didn't throw any error messages and was able to upload the LED blinking program successfully (GIF below). Thus, MCU programming functionality is verified and working. 
+
+![Software upload success](blinkg.gif)
+
+# 2021-04-13 MCU Board Test Day 6 <a name= "#Test5"></a> 
+Because our MPPT algorithm and other control signals for the power board needs to use PWM signals, it is necessary to classify PWM digital pins and non PWM digital pins. In addition, analog signals labeling was needed as well. Mapping reference was done using the Arduino UNO pin maps since some of our prototype testing code has been using Arduino UNO. 
+
+![Uno_328_Map](atmega_uno_map.PNG)
+
+![Pin mapped](pinmap.jpg)
+
+
+In addition to labeling and mapping the pin maps on the software, display communication protocol was also initialized. For fluent SDA and SCL communication, Adafruit's GFX library was used for the I2C display communication. Library and custom display to ATMEGA control pin integration code was successfully uploaded. 
+
+![Display loaded](display_success.jpg)
+# 2021-04-16 Battery Charging Test Day 1 <a name= "#Batt1"></a> 
+To test out whether battery charging outputs correct voltage level according to the charging control pin (ATMEGA328P PB1), voltage level was monitored as this pin was set high or low. By measuring the voltage across multiple terminals and comparing the values with the simulation, circuit behavior was verified. For the most parts, voltage values were approximately 0.05V off compared that of the simulated results. However, I decided that this will be in a reasonable range of tolerance. 
+
+Current across the load was not tested since the battery holder did not arrive yet. 
+
+# 2021-04-18 Battery Charging Test Day 2 <a name= "#Batt2"></a> 
+Battery holder arrived and hooked up the battery to the board's charging logic. Behavior of the logic was weird. Initially, the charging current was 70mA exactly. However, after exactly 1 second, 70mA goes down to 0mA and current was no longer being outputted. Voltage values were checked again to see if the circuit is behaving correctly. However, due to the battery voltage on the load, verifying it with the simulation was not possible. In addition, switching noise was heard every time current drops to 70mA to 0mA on the DMM I was using. Suspecting it might be DMM issue (blown fuses or surge current), decided to test tomorrow with my hand-held multimeter and other lab's DMM. 
+
+# 2021-04-20 Battery Charging Test Day 3 <a name= "#Batt3"></a> 
+Battery charging logic has been tested with my own hand-held multimeter and different lab's DMM. However, it seems like the battery charging circuit still outputs 70mA only for a second and goes back to 0mA. I decided to probe the circuit around and test by changing different factors like VIN voltage to LM317, load condition (short the charging logic to 0V) and putting a 500mA fuse across. None of these attempts worked. 
+
+Thinking that it might be the PCB issue since some modification has been done on the PCB (cutting the wrong trace and redirecting it by wires, using same pad to mount through-hole resistor in place of SMD resistor), I decided to model the same circuit on the breadboard. Breadboard circuit behavior also was not idea. Although it was outputting around 70-82mA current, it was always outputting it regardless of the control signals. Voltage measures were the same as well. 
+
+I decided to probe the PCB side again and noticed that after the signal go across the diode, voltage drops to 0V. This was odd since the diode should conduct current fully after 1.2V. However, even at 1.3V reading, it was not conducting the current and was 0V after the diode. Thinking that it might be the diode problem, I decided to swap out the diode on the breadboard and test it. When I swapped the diode, at a glance, it looked fine. There were still some non-ideal behaviors observed (forward voltage still not the expected value) but I decided to swap the diode out on the PCB and see how it performs. 
+
+![Display loaded](Breadboard_batt.jpg)
+
+# 2021-04-21 Battery Charging Test Day 4 <a name= "#Batt4"></a> 
+Three diodes are prepared for candidates. Two are the rectifier diodes I was able to find with similar diode specifications (1V forward voltage) and another one was zener diode. Breadboard gave consistent results across all three alternative diodes so I just decided to start with higher power rating rectifier diodes.
+
+However, none of the diodes worked on the PCB. Regardless of the diodes I used, behaviors were all the same as prior to changing the diode. 
+
+Resolder diodes etc
+Battery chemistery lol ... Found issue
+
+![Display loaded](batt_debug_success.jpg)
+
+# 2021-04-25 MCU Code Finalization <a name= "#MCU_Final"></a> 
 ----------------------------------------------
 
-I decided to add some of open source kicad parts to complement our PCB design. 
-
-Here are the links to their github: 
-
-[MX Alps library](https://github.com/ai03-2725/MX_Alps_Hybrid)
-
-[USB C library](https://github.com/ai03-2725/Type-C.pretty)
-
-[random keyboard parts library](https://github.com/ai03-2725/random-keyboard-parts.pretty)
