@@ -11,6 +11,17 @@
 * [Power Board PCB Finalization](#PBF)
 * [MCU Board Assembly Day 1](#Assembly1)
 * [MCU Board Assembly Day 2](#Assembly2)
+* [MCU Board Test Day 1](#Test1)
+* [MCU Board Test Day 2](#Test2)
+* [MCU Board Test Day 3](#Test3)
+* [MCU Board Test Day 4](#Test4)
+* [MCU Board Test Day 5](#Test5)
+* [MCU Board Test Day 6](#Test6)
+* [Battery Charging Test Day 1](#Batt1)
+* [Battery Charging Test Day 2](#Batt2)
+* [Battery Charging Test Day 3](#Batt3)
+* [Battery Charging Test Day 4](#Batt4)
+* [MCU Final Result](#MCU_Final)
 
 # references <a name= "references"></a>
 * https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf 
@@ -90,7 +101,7 @@ Initial components were selected and order was placed. We realized that lots of 
 
 # 2021-03-30 Power Board PCB Finalization <a name= "#PBF"></a> 
  
- Helped Yei and Lukas finishing up the power board's PCB layout. Main thing I paid attention was effective component placement for heat dissipation. Because the power board need to be able to step down upto 22V to 5V (and 7V), there will a lot of heat dissipation through out the board. In addition, 2A trace and other relatively high amp traces exist on the board. Therefore, it was important to place components carefully considering the heat dissipation. To enhance the current trances, large polygon pour was implemented on both signal layers of the board. 
+ For the past 10 days, I had COVID and was under quarantine. After being hack, I helped Yei and Lukas finishing up the power board's PCB layout. Main thing I paid attention was effective component placement for heat dissipation. Because the power board need to be able to step down upto 22V to 5V (and 7V), there will a lot of heat dissipation through out the board. In addition, 2A trace and other relatively high amp traces exist on the board. Therefore, it was important to place components carefully considering the heat dissipation. To enhance the current trances, large polygon pour was implemented on both signal layers of the board. 
  
 # 2021-04-02 MCU Board Assembly Day 1 <a name= "#Assembly1"></a> 
 
@@ -143,7 +154,7 @@ The new USB to UART conversion board arrived and was soldered in to the redirect
 
 ![Software upload success](blinkg.gif)
 
-# 2021-04-13 MCU Board Test Day 6 <a name= "#Test5"></a> 
+# 2021-04-13 MCU Board Test Day 6 <a name= "#Test6"></a> 
 Because our MPPT algorithm and other control signals for the power board needs to use PWM signals, it is necessary to classify PWM digital pins and non PWM digital pins. In addition, analog signals labeling was needed as well. Mapping reference was done using the Arduino UNO pin maps since some of our prototype testing code has been using Arduino UNO. 
 
 ![Uno_328_Map](atmega_uno_map.PNG)
@@ -169,18 +180,28 @@ Thinking that it might be the PCB issue since some modification has been done on
 
 I decided to probe the PCB side again and noticed that after the signal go across the diode, voltage drops to 0V. This was odd since the diode should conduct current fully after 1.2V. However, even at 1.3V reading, it was not conducting the current and was 0V after the diode. Thinking that it might be the diode problem, I decided to swap out the diode on the breadboard and test it. When I swapped the diode, at a glance, it looked fine. There were still some non-ideal behaviors observed (forward voltage still not the expected value) but I decided to swap the diode out on the PCB and see how it performs. 
 
-![Display loaded](Breadboard_batt.jpg)
+![Breadboard ckt](Breadboard_batt.jpg)
 
 # 2021-04-21 Battery Charging Test Day 4 <a name= "#Batt4"></a> 
 Three diodes are prepared for candidates. Two are the rectifier diodes I was able to find with similar diode specifications (1V forward voltage) and another one was zener diode. Breadboard gave consistent results across all three alternative diodes so I just decided to start with higher power rating rectifier diodes.
 
-However, none of the diodes worked on the PCB. Regardless of the diodes I used, behaviors were all the same as prior to changing the diode. 
+However, none of the diodes worked on the PCB. Regardless of the diodes I used. They all seemed to output 70mA to 80mA range of current for the first couple seconds and goes back to the 0V state.  
 
-Resolder diodes etc
-Battery chemistery lol ... Found issue
+I also tried to probe whether it was an issue with the battery. I ordered two batteries, trying to use one as a fully charged one and the other as a fully drained one. All the testing has been done with the drained out battery. I realized that the battery level somehow is around 1.05V. Testing began after draining this battery a bit more.  
 
-![Display loaded](batt_debug_success.jpg)
+After repeating to reproduce current going from 70mA to 0mA situation couple more times, I noticed that this timing corresponds to indicator LED's on and off cycle periods. I immediately try to press reset button of the MCU board and noticed that 70mA was being outputted. The problem was MCU initially setting the pin low and later setting it high as programmed. However, because the logic is active low, setting control pin high was keep turning off the logic. After realizing this, the code was fixed and 70mA are being outputted reliably whenever we want it to charge the battery. 
+
+![Batt success](batt_debug_success.jpg)
 
 # 2021-04-25 MCU Code Finalization <a name= "#MCU_Final"></a> 
+Final MCU code has been written and loaded to the MCU board for the full integration with the power board. The main challenge was uploading the gate driver PWM generation. Lukas and I attempted to write the code and debug it. There were lots of documentation about using PWM D9 and D10 pin (Arduino pin mapping), however, pin 9 was assigned for different function on the PCB trace level design. The challenge was getting the other PWM pair to do the same thing. Special type of PWM generation was needed since we needed around 5KHz fast pwm signal generation, which is not supported by the normal analogwrite and digitalwrite functions. We ended up using pin 3 and pin 11 PWM pairs. To test whether the valid PWM signals are being outputted, poth pins were observed via oscilloscope. Two pins seems to output exactly inverted PWM signal, which is a valid input going to the gate driver of the buck. 
+
+Battery charging code logic was also editted and integrated with the whole system code. Again, voltage reading was read from (max 0 to 1V reading through the divider network) battery sense PCB trace and was scaled from 0 to 1024 for analogRead. Display code also was edited reflect the sensor feedback values.
+
+Finally, the MCU board and power board was merged. The power board seemed to output about 7.8V to the MCU board. Since the 5V step down logic can handle up to 20V, this is more than acceptable range. The MCU board also seems to get sufficient about of power to operate the MCU itself, charge battery and the display. 
+
+The final result of the integration is below via GIF image. Currently, the MCU code is driving the gate drivers with the PWM signal and buck is using this to charge the phone with 5V USB protocol. 
+
+![final](final_results_gif.gif)
 ----------------------------------------------
 
