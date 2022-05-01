@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "LM2575WT")(type "KiCad")(uri "${ECE445_DIR}/footprints.pretty")(options "")(descr ""))
+  (lib (name "BA50DD0T-ND")(type "KiCad")(uri "C:/Users/USER/Downloads/ul_BA50DD0T/KiCAD/2022-03-31_03-18-12/footprints.pretty")(options "")(descr ""))
+)

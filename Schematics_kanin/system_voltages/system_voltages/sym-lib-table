@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "LM2575WT")(type "Legacy")(uri "${ECE445_DIR}/2022-03-19_20-19-57.lib")(options "")(descr ""))
+  (lib (name "BA50DD0T-ND")(type "Legacy")(uri "C:/Users/USER/Downloads/ul_BA50DD0T/KiCAD/2022-03-31_03-18-12/2022-03-31_03-18-12.lib")(options "")(descr ""))
+)

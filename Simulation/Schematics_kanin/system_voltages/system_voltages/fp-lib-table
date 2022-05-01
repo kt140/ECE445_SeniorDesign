@@ -1,3 +1,0 @@
-(fp_lib_table
-  (lib (name "LM2575WT")(type "KiCad")(uri "${ECE445_DIR}/footprints.pretty")(options "")(descr ""))
-)
