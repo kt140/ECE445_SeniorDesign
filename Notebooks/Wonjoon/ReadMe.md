@@ -157,7 +157,7 @@ The new USB to UART conversion board arrived and was soldered in to the redirect
 # 2021-04-13 MCU Board Test Day 6 <a name= "Test6"></a> 
 Because our MPPT algorithm and other control signals for the power board needs to use PWM signals, it is necessary to classify PWM digital pins and non PWM digital pins. In addition, analog signals labeling was needed as well. Mapping reference was done using the Arduino UNO pin maps since some of our prototype testing code has been using Arduino UNO. 
 
-![Uno_328_Map](atmega_uno_map.PNG)
+![Uno_328_Map](atmega_uno_map.png)
 
 ![Pin mapped](pinmap.jpg)
 
