@@ -115,7 +115,7 @@ However when we actually probe the output of our buck converter we see that the 
 
 # 04/20/2022 - Building the buck converter on the breadboad
 
-To help isolate the problems with the buck converter
+To help isolate the problems with the buck converter we decided to build the buck converter on the breadboard. This is 
 
 ![](testing_on_breadboard.jpg)
 
@@ -140,7 +140,7 @@ In order to continue with the debugging process for our buck converter, we wante
 
 When we tested the output of this perfboard, we ran into the same issues whereby the buck converter was only able to buck successfully up until an input of 10 V and after that the output buck converter would then continue to increase but in smaller increments. An example of this is an input of 15 V produces an output of approximately 5 V at a 50% duty cycle. This is not correct especially since the output voltage is expected to be at 7.5 V.
 
-With that in mind, with that in mind
+Even with the eventually faulty perf board, we were able to output a solid 5 V USB charging unit and so as a result we can create a 
 
 # 04/24/2022 Switching our synchronous buck converter to a non-synchronous buck converter
 
