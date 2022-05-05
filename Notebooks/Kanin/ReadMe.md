@@ -115,17 +115,17 @@ However when we actually probe the output of our buck converter we see that the 
 
 # 04/20/2022 - Building the buck converter on the breadboad
 
-To help isolate the problems with the buck converter we decided to build the buck converter on the breadboard. This is 
+To help isolate the problems with the buck converter we decided to build the buck converter on the breadboard. This is the best way in which we can help with debugging our current buck converter system. The breadboard has allowed us to debug individual problems with the PCB. If the PCB traces themselves were to have problems, then rebuilding the buck converter on a breadboard would allow us to reliable confirm this hypothesis. That being said, after running the tests again it can be seen that our results still provide us with very similar results. Furthermore the breadboard itself is only rated for around 1 A or current to flow through its nodes. As a result, it can be determined that it is not a problem with the PCB traces.
 
 ![](testing_on_breadboard.jpg)
 
 ![](testing_on_breadboard2.jpg)
 
-
-
 # 04/21/2022 - DCM and CCM issue + swapping inductor
 
-DCM and CCM calculations
+DCM and CCM calculations. Another potential issue that has been flagged at this point is the operating point of the buck converter. DC-DC converters in general are able to operate in two main levels, 1.) continuous conduction mode and 2.) discontinuous conduction mode. Continuous conduction mode essentially allows us to operate our inductor without the current ever dropping to zero. Discontinuous conduction mode is when the current through the inductor actually decreases to zero. As a result, if the buck converter was operating in discontinuous conduction mode, then this would affect the average current especially since we assume that the average of the inductor current is assumed to power our load. After performing the neccessary calculations, I resized our inductors to 330 uH inductor as well as 300 mH. This ultimately led to very similar results, however the voltage does plateau increase a little which means that we are able to operate the buck converter at a lower duty cycle.
+
+The calculations to be made for discontinuous conduction mode can be referenced through the following website here: https://www.allaboutcircuits.com/technical-articles/discontinuous-conduction-mode-of-simple-converters/.
 
 # 04/22/2022 - Running Simulation for buck converter correction, solving for EMI issues.
 
