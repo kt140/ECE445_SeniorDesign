@@ -129,7 +129,7 @@ The calculations to be made for discontinuous conduction mode can be referenced 
 
 # 04/22/2022 - Running Simulation for buck converter correction, solving for EMI issues.
 
-https://resources.altium.com/p/create-high-current-buck-voltage-controller 
+Another issue that could be the cause of the problems with the buck converter is electromagnetic interference or EMI. This typically can cause problems as it can produce an additional magnetic field that can induce currents in places that are not needed. This issue was potentially bought to light in this article by altium, https://resources.altium.com/p/create-high-current-buck-voltage-controller. As a result, it is paramount that we close our EMI loops as much as possible. It is no longer possible to print out another PCB design to help with this issue, as a result our final option is to rebuild this on a perf board whereby I can now recreate the design to minimize our EMMI loops.
 
 
 # 04/23/2022 - Creating own perfboard
