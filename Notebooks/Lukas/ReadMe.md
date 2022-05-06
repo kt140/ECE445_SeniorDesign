@@ -304,6 +304,12 @@ The very last tests performed were done as a group. We all went into lab, with t
 
 ![](images_markdown/outside_of_project_team7.jpg)
 
+# 04/26/2022 Final Demonstration
+<p align="center">
+  <img src="images_markdown/final_results_gif.gif" alt="animated" />
+</p>
+
+
 # 05/01/2022 Final Data Collected for Presentation and Report
 
 We recieved some good feedback from the mock presentation on Friday 4/29, which manily was centered around the format and flow of our presentation. There were not a lot of issues with our presentation skills, but the audience felt distattched from the presentation because the order did not make sense. Today, I changed the order of the presentation to show the final results of our project at the beginning. This gave our audence soenmthing tangible to understand about our project at the start of the presentation. The second thing I did, was go into lab and be able to obtain some tables and plots for our final presentation. We realized that we had no pictures in the presentation that comunicated the issue and problems we encountered during the project, so I collected data and wrote a python scipt in 445plots.ipynb in this repository. The plot below demonstrates the nonlinear beahviour of the synchronous buck converter, which proved to be detrimental to our project. We do not need to present until Tuesday morning, which gives out team ample time to prepare and rehearse. 
