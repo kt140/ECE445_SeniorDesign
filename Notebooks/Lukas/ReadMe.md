@@ -1,11 +1,12 @@
 # Lukas' Work Log
 
 ## Table of contents:
+- [RFA](#Original-Solution-Ideas)
 - [Project Proposal](#projectproposal)
 - [Design Document Complete](#designdocfull)
 - [Design Document Complete](#designdocfull)
 
-# 01/27/2022 - RFA Approved<a name="projectproosal"></a>
+# 01/27/2022 - RFA Approved<a name="Original-Solution-Ideas"></a>
 
 ## Solution Components:
 1. Input: Solar Panel Power Voltage Input (Solar Panels)
@@ -156,6 +157,8 @@ We met together at the Siebel basement to discuss our schedule for PCB orders. W
 After discussing the project with Yei, I realized that we would not be able to meet the Requirements & Verifications (R&V) we wrote in the Design Document without including an energy storage unit. We could not visualize a clear solution for how to simulatnaeouisly extract MPPT and regulate USB charging. It would be unsafe to use an external energy unit ( like a Lithium Ion Battery) to charge a USB device and harness the energy from the solar panel, because we would essentailly be running current directly through the battery and degrading its quality. This requires us to design some circuitry that allows the USB charger to be connected directly to the output of the MPPT DC-DC converter instead of the battery, however, we cannot gaurantee the maximum power point will be found in this sitaution. A PWM solar controller like the 
 [SunKeeper](https://www.morningstarcorp.com/products/sunkeeper/ "SunKeeper") provided in lab is commonly used to charge batteries at fixed DC-DC power ratings. Despite eliminating a separate excess energy storage unit from our project, we realized that this was essential to locating the maximum power point. If we do not include this, the MPPT has an upper bound dependent on the USB load, and we may be unsuccesful in compelting the R&Vs outlined in the Design Document. This prohibted us from contiuning on with the power board, until we incorporated some way to store the excess energy with MPPT. 
 
+![](images_IPR/Buck-INA.png)
+
 # 03/12/2022 - TA Meeting and Group Planning <a name="designdoc"></a>
 Due to several of our team members having interviews, we met on the first Saturday of Spring Break for our weekly TA meeting. We mainly discussed how to move forward ordering parts and ordering the PCB on our own. We ran into issues with the cost of our board being $133 for 5 copies, which caused us to miss the first PCB deaadline. Since the 3/8 deadline, we have audited the MCU board and placed an order ourselves to make sure it will arrive in time to test and debug. The biggest concern moving forward is finalizing the power board before the second deadline, and making sure all of our parts can be ordered as soon as possible. 
 
@@ -180,6 +183,8 @@ This allows the device to bypass the USB communication protocol, and directly co
 ![](images_markdown/Ideal-DCP-config.PNG)
 
 If this does not work, there is also the option of buying a premade board to do this for us, and simply interface [this board](https://www.seeedstudio.com/Lipo-Rider-Plus-p-4204.html?gclid=CjwKCAjw_tWRBhAwEiwALxFPoR--l6bB3jGPfZKoGkSbGB3EaNlgAs9KFKoq4bSAiMn4nbsBqeK3YBoCO0kQAvD_BwE "this board") with MPPT. 
+
+![](images_IPR/USB_schematic.png)
 
 # 03/25/2022 - TA meeting and Team Meeting  <a name="designdoc"></a>
 
@@ -216,6 +221,8 @@ Furthermore, Wonjoon is out of quarantine and has been assembling the MCU PCB. W
 # 04/11/2022 - Soldering of the power board <a name="designdoc"></a>
 Kanin recieved our version 2 of the Power PCB this week, which he ordered independtly from the course, but our components from  Digikey and Mouser did not arrive until 4/9/2022. Kanin began soldering, the power board PCB, but today was the first day we both went into lab to assemble the board. I brought with me the INA240 current sensors, which I ordered myself due to theri price. These sensors cost about $5 per IC, and we needed to order at least 4 in case one does not work. I also brought in 1N4001 diodes, jumper wires, PCB testpoints, Banana Connectors, and PCB mounting screws, which were the final parts we could assemble for the time being. We are still missing a 1N4002 Diode and the Pheonix connectors, which will be used for power and control/feedback signals that must be routed using jumper wires between our PCBs. Kanin has been in charge of ordering parts andd keep tracking of our Bill of materials, and informed me that the order has been processed by the department and should be en route soon. 
 
+![](images_markdown/half_finished_boards.jpg)
+
 # 04/13/2022 - Picked up all parts from Kanin <a name="designdoc"></a>
 Unfortunately, Kanin tested positive for COVID today and we had to cancel our plans to meet together in the lab. I have picked up all of the pieces of our project that Kanin kept with him, becasue they did not fit in our locker, but I cannot go into lab myself. I chose to not go into lab today, because Kanin and I were both working with the same microscope last night and I do not want expose other students in the lab if I also test positive. Kanin and I then sat down on a zoom call and discussed how we should proceed with testing. We decided that I would begin testing the internal power management subsytem, which consist of an LDO used to power the MCU board and all internal ICs. If this wer to be functional, I could further attatch wires to specific testpoints connected to our TPS chip to ensure the USB port would be acting as a dedicated charging port. This involves connecting the poer supply directly to the input of the IC, and probing each output pin. If the chip is working, we should read 5V on Vdd, 2.7V on D-, 2V on D+, and 0V at GND. I asked Kanin if he could research the exact syntax and register mapping of the ATMEGA328 to generate PWM signals, but I also told him to rest up and focus on his health. 
 
@@ -230,6 +237,8 @@ Today, I went to the ECEB supply shop to look for a few small and minor parts of
 # 04/18/2022 - Testing in the lab   <a name="designdoc"></a>
 Due to several issues I ran into while testing the pwoer board last time I was in the lab, I did not have a chance to fully debug the output. Today I went into lab with Kanin, which was his first day out of quarantine, to fully test each aspect of the power board. We quickly solved the issue I has with the internal power supply management given werid results; one of our LDOs was siodlered on in the reverse orientation. After we removed this part and put a new component on, the pwoer supply was able to output 7-8 V consistently as expected. This allowed us to begin testing the ICs and synchrnous buck converter, becasue we could verify that each component was outputting the correct signals and waveforms. 
 
+![](images_markdown/MCU_7V_feed.jpg)
+
  This was done by using the waveform generator avvailable in lab, where we set it to high z mode, and then enabled inverted tracking between channel 1 and 2. This produces two complimentary PWM signals that will then be used as the input to the gate drivers for the two MOSFETs. Kanin also informed me today, that the gate driver must be powered at 5-7 V, but there is no internal power trace routed to this pin. Hence, the testing I perfomed on 4/14 for the synchronous buck converter, was meaningless because the gate driver was not powered. We quickly soldered this pin to our itnernal power supply traces, however, our power supply can only output this voltage if $V_{IN} > V_{Gate Driver}$. This means that we can only use a the DC power supply to test the buck at operating voltages greater then 7 V, otherwise the the synchronous Buck converter is not active in the circuit. This may cause a problem in the future, when we begin testing with a solar panel, but for now the synchronous Buck converter is working to regulate 5V at thae output. There are some unexpected voltages at the output of the synchronous buck converter, that we were unable to understand.
 
 
@@ -237,13 +246,24 @@ Due to several issues I ran into while testing the pwoer board last time I was i
 
 I was unable to work on the project early in the day, because I broke my wrist this afternoon. I arrived at lab around 9PM, where Wonjoon and Kanin had already began testing. kanin and Wonjoon were able to see the missing connection on the gatedriver, and we ran a full set of tests to make sure it was working correctly. As we were going through various duty cycles, and changing the gain of our power eelctronic converter, we noticed that the output would plateau around 5 V. This would happen no matter ehat was the issue. I wanted to help perform continuity tests and probe the PCB with the oscilloscope, but I am in a lot of pain with my wrist as of the moment. Thankfully, Kanin has been helping me out and taking the lead. 
 
+![](images_markdown/overall_buck_output.jpg)
+
+
+
 # 04/20/2022 - Helping Kanin Debug the Power PCB and begin building the PCB enclosure
 
 Today I went into lab and helped Kanin further debug the synchronous Buck converter. The synchronous buck converter would not behave like the relationship $V_{OUT} = D V_{IN}$, which is essentially the entire reason we chose to use a linear step down converter for our MPPT topology. Today, we assemvbled the buck on the bread board to see if it was an issue with the sizing of our components. This also allows us to remove a single part from the design, and then observe the change in the output. We tried replacing the electrolytic capcaitors with ceramic capacitors, using new FETS, increasing our switching frequency, increasing the amplitude of the duty cycle, but nothing worked. We tried rebuilding the buck converter and using the elctronic load to strictly control the output voltage, but even with the electronic load, the voltage reached a plateau. We were able to get the buck converter to work up until 8V this time, but then it would exhibit the same nonlinear behaviour. I believe this is a Discontinous conduction mode problem, because we are not sourcing large current from the power supply. The only way to verify this is using a current probe, but we cannot probe the inductor current when it is mounted on the PCB. Kanin has a spare large inductor at home that he used in another project, so we will be testing for DCM tomorrow with this. Wonjoon was also in lab debuggin the NiCd charging, which I helped look over the PCB and reccomend a few solutions. I am not much of a help building and testing the components, due to my broken wrist. I ended up leaving lab early to go begin the PCB enclosure, which for now is just a wooden box that needs to be cut to shape. After I went home, I outlined all of the cut outs that need to be made. 
 
+![](images_markdown/testing-bread.jpg)
+
+![](images_markdown/testing_on_breadboard2.jpg)
+
+
 # 04/20/2022 & 04/21/2022 - Debugging the NiCD Charging current 
 
 Yesterday, Wonjoon was debugging the control logic for constant 70 mA charging. I tired helping him yesterday by looking over his scheamtic but we could not find any issue. Today, we continued looking for a solution and tried to reaplce the diode that is supposed to be conducting when charging is enabled. We tried a zener diode, and a 1N4002 I had purchased, but could still not get a working output. At one point while we were debugging this system, I used the reeset button on the MCU board and noticed that the charging was enabled when the device was reset. I then pressed the reset button down, and we immediatelty were able to read 70 mA on the DMM. The problem was that the firmware set the erset signal to active lwo instead of active high, meaning the board was constantly being reset to the inital state. Once this was fixed in firmware, the NiCd battery charign schema was fully testaed anf fully verified. There was no further issues with the power board, which allowed me to fully commit my time to debug the power board. 
+
+![](images_markdown/activelow.PNG)
 
 # 04/21/2022 - DCM and CCM issue w/ new inductor 
 
@@ -253,18 +273,36 @@ $$L_{CCM} = D \frac{(V_i - V_O)R}{2 f V_O} $$
 
 After we tried using this oversized inductor, it did not improve the non-linear effects in the output at all. As a last ditch effort to try and figure this out before the mock demo tomorrow, we used the resistor box located at the Power Benches in lab. This device lets us set a known resistance at the output, which is capable of dissipating large amounts of power. Even when there was a power resistor attatched to the laod, the buck converter would not behave linear if the input voltage was greater then 4 V. We thought this might be an issue with our design, but I believe it copuld be due to EMI. We have a loops on our PCB that enclose large amounts of area, which could be causing magnetic intereference with our gate driver signals. We have probed almost each node in the synchronous buck converter schematic, but cannot identify the issue. 
 
+![](images_markdown/resistor-box.jpg)
+
 # 04/22/2022 - Mock Demo and Final Efforts to Debug the Synchronous Buck Converter 
 
 We performed the mock demo on the breadboard, but then showed how the synchronous buck converter did not work. The power board PCB was entirely dependent on the correct operation of the synchronous buck converter, as discussed in the tolerance analysis of the Design document. We were fortunate enough to demo all of the functionalty on the MCU board, but our project had not been integrated yet and an entire subsytem was not working (The solar panel and MPPt algorithm are dependent on the linear gain of the buck $(\frac{V_{OUT}}{V_{IN}} = D)$. I found an article that supports EMI being our issue, [here](https://resources.altium.com/p/create-high-current-buck-voltage-controller  "here"), which led Kanin to suggest building the Buck converter on a perfboard to try and minimize the enclosed area in our system. I told him to go for it, but my hand is now in a cast and I am unable to help solder or assembly anything. He was able to assemble and test the perfboard implementation, but it seems that the problem could be an issue with our design, because the Buck converter is nonlinear on the PCB, breadboard, and the perfboard.  
 
+![](images_markdown/integrated-PCBs.jpg)
+
 # 04/24/2022 - Final Development of MCU code + Finish PCB Enclosure 
 
-As a team, we have decided to stop focusing our attention on the synchronous buck converter and begin integrating each subsystem together.  We do not want to solely focus on one subsytenm not working, and then have a messy project that is not fully integrated into a single device. Today, Wonjoon and I sat down and integrated two different pieces of firmware. He had developed the logic for NiCd battery management, and I devleoped the firmware for MPPT and controlling the buck converter. We have not been able to test with the solar panel, due to cloudy rainy weather this week. We decided that we should not demo our MPPT algorithm, because it had not been tested and could create issues during the live demonstration. Thus, I had to rewrite and design some firmware to control 5 V USB charging from the USB poer supply. This was not an extensive change, but there was an issue with timerOne. TimerOne is the 16 bit clock on the ATMEGA328P that I used to design a 100 Khz complimentary PWM waveform. Wonjoon informed me today that he was also using TimerOne for the NiCd battery management, meaning I had to change my implmentation to work with the 8 bit clock using timer0. 
- 
+As a team, we have decided to stop focusing our attention on the synchronous buck converter and begin integrating each subsystem together.  We do not want to solely focus on one subsytenm not working, and then have a messy project that is not fully integrated into a single device. Today, Wonjoon and I sat down and integrated two different pieces of firmware. He had developed the logic for NiCd battery management, and I devleoped the firmware for MPPT and controlling the buck converter. We have not been able to test with the solar panel, due to cloudy rainy weather this week. We decided that we should not demo our MPPT algorithm, because it had not been tested and could create issues during the live demonstration. Thus, I had to rewrite and design some firmware to control 5 V USB charging from the USB poer supply. This was not an extensive change, but there was an issue with timerOne. TimerOne is the 16 bit clock on the ATMEGA328P that I used to design a 100 Khz complimentary PWM waveform. Wonjoon informed me today that he was also using TimerOne for the NiCd battery management, meaning I had to change my implmentation to work with the 8 bit clock using timer0. This also meant that we could only run the PWM signals at 62 KHz, due to the internal PWM register configuration inside the ATMEGA. This took about two hours to solve, before we were able to get the MCU to output the PWM signals and have the NiCd firmware programmed at the same time. We quickly performed tests to make sure the MCU PWM signals were still outputting 5 V for USB charging, and then I went home to finish the PCB enclosure. 
+
+![](images_markdown/pwm-MCU.jpg)
+
+![](images_markdown/pwm-gatedriver.jpg)
+
+
+
+The final steps of the PCB enclosure included cutting out the correct dimensions for all of the components, applying foam inside such that the PCB would not get damaged, and applying a layer of paint to give it a professional finish. My roommate helped me out with the woodworking, because my wrist is still in a cast, which I greatly appreciated. After the enclosure was finished, I attached the PCB moutning screws on the inside, and was able to verify that each PCB was secure and in the correct orientation. 
+
+![](images_markdown/PCB_ENCLOSURE.jpg) 
 
 # 04/25/2022 Final System Integration + Drafting the Handout for the Demo 
+The very last tests performed were done as a group. We all went into lab, with the fully integrated device inside the PCB enclosure, and began rehearsing for the demo. We went through each R&V and were able to achieve almost all of them. The only R&Vs we did nto achieve, were MPPT and 2A  and 10 W charging speeds for the USB port. These can be directly attributed to the buck converter behaving nonlinearly, but as you can see from the gif in Yei's notebook, our power electronics were able to chareg a USB device still. I also would like to mention that I did the entire handout for the demo alone, using a template I use for other assignments in latex. Our final demonstration is tomorrow, and we feel that it will be very successful. 
 
-# 04/26/2022 Final Demonstration
+![](images_markdown/final-integration.jpg)
+
+![](images_markdown/Consumer_Design.jpg)
+
+![](images_markdown/outside_of_project_team7.jpg)
 
 # 05/01/2022 Final Data Collected for Presentation and Report
 
@@ -274,5 +312,11 @@ As for the final report, I have already created and shared the overleaf document
 
 
 ![](images_markdown/last-minute.png)
+![](images_markdown/MCU_side_input.png)
+![](images_markdown/gate_drivers_signal.png)
 
 # 05/03/2022 Final Presentation
+
+We have successfully completed our project and presented today. Heres a picture for fun
+
+![](images_markdown/presentation.jpg)
